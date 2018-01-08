@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Bomgator</string>
+    <string name="start_message">Напиши мне слово на Русском. Нажми на лицо и я его бомжирую!</string>
+    <string name="wrong_input_tip">Не могу!</string>
+    <string name="wrong_imput_msg">Могу бомжировать только одиночные русские слова...</string>
+    <string name="click_on_face_msg">Жми на лицо!</string>
+    <string name="face_of_bomg">face of bomg</string>
+</resources>
