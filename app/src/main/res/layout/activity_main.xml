@@ -12,6 +12,7 @@
         android:layout_width="343dp"
         android:layout_height="237dp"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/face_of_bomg"
         android:onClick="onFaceClick"
         android:scaleType="fitCenter"
         android:src="@drawable/bomg"
@@ -20,8 +21,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.299"
-        android:contentDescription="@string/face_of_bomg">
+        app:layout_constraintVertical_bias="0.058">
 
     </ImageButton>
 
@@ -62,6 +62,21 @@
         app:layout_constraintHorizontal_bias="0.276"
         app:layout_constraintStart_toStartOf="@+id/imageButton"
         app:layout_constraintTop_toTopOf="@+id/imageButton" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:adSize="BANNER"
+        app:adUnitId="@string/admob_unit_key_sample"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 </android.support.constraint.ConstraintLayout>

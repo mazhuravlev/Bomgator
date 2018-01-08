@@ -2,7 +2,6 @@ package ru.com.rh.bomgator;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.Voice;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,17 +10,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextWatcher, TextToSpeech.OnInitListener {
-
-    private TextView bomgSay;
-    private EditText whatBomgirovat;
-
-    private TextToSpeech textToSpeech;
-
-    private boolean canSpeach;
-    private boolean isValid;
+    private final static String AD_TAG = "AD";
+    private final static String TTS_TAG = "TTS";
 
     private final static String REG_RUS_LETTERS = "^[а-яА-Яё]+$";
     private final static String RU_VOVELS = "ауоыиэяюёе";
@@ -30,13 +28,40 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Text
     private final static float VOICE_PITCH = 0.1f;
     private final static float VOICE_RATE = 0.9f;
 
+    private TextView bomgSay;
+    private EditText whatBomgirovat;
+
+    private TextToSpeech textToSpeech;
+    private AdView adView;
+
+    private boolean canSpeach;
+    private boolean isValid;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // setup ad
+        MobileAds.initialize(this, getResources().getString(R.string.admob_app_key_sample));
+        adView = findViewById(R.id.adView);
+
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                if (BuildConfig.DEBUG) Log.e("AD:", "Ошибка! Реклама не загружена! " +
+                        "\nError code: " + errorCode);
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        // setup tts
         textToSpeech = new TextToSpeech(this, this);
 
+        // setup app
         bomgSay = findViewById(R.id.bomgSay);
         bomgSay.setText(R.string.start_message);
 
@@ -107,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Text
 
             if (result == TextToSpeech.LANG_MISSING_DATA
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS", "Извините, этот язык не поддерживается");
+                if (BuildConfig.DEBUG) Log.e(TTS_TAG, "Извините, этот язык не поддерживается");
                 canSpeach = false;
             } else {
                 canSpeach = true;
@@ -115,8 +140,17 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Text
 
         } else {
             canSpeach = false;
-            Log.e("TTS", "Ошибка!");
+            if (BuildConfig.DEBUG) Log.e(TTS_TAG, "Ошибка!");
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -128,6 +162,4 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Text
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         // not implemented
     }
-
-
 }
