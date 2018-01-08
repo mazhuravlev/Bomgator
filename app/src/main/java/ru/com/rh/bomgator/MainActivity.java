@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, Text
         setContentView(R.layout.activity_main);
 
         // setup ad
-        MobileAds.initialize(this, getResources().getString(R.string.admob_app_key_sample));
+        MobileAds.initialize(this, getResources().getString(R.string.admob_app_key));
         adView = findViewById(R.id.adView);
 
         adView.setAdListener(new AdListener() {
