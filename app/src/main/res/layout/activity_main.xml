@@ -37,6 +37,7 @@
         android:maxLines="1"
         android:inputType="text"
         android:textColor="@android:color/white"
+        android:hint="@string/write_here"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +78,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
-
 
 </android.support.constraint.ConstraintLayout>

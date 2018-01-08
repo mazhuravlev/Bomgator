@@ -5,4 +5,5 @@
     <string name="wrong_imput_msg">Могу бомжировать только одиночные русские слова...</string>
     <string name="click_on_face_msg">Жми на лицо!</string>
     <string name="face_of_bomg">face of bomg</string>
+    <string name="write_here">Пиши сюда</string>
 </resources>
